@@ -1,0 +1,24 @@
+snippet vectorprint "Insert a templetized function to print a vector"
+template<class T>
+void printVector(const std::vector<T> &v)
+{
+    std::cout << "{";
+    for (auto it = v.begin(); it < v.end(); it++)
+    {
+        std::cout << std::to_string(*it);
+        if (it + 1 != v.end())
+        {
+            std::cout << ", ";
+        }
+    }
+    std::cout << "}" << std::flush;
+}
+endsnippet
+
+snippet basiccpp
+#include <iostream>
+
+int main(int argc, char** argv)
+{
+}
+endsnippet

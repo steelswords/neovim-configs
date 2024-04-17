@@ -1,0 +1,71 @@
+snippet script
+#!/usr/bin/env bash
+# File:        $1
+# Author:      Tristan Andrus
+# Description: $2
+################################################################################
+
+set -o errexit   # Abort on nonzero exitstatus
+set -o nounset   # Abort on unbound variable
+set -o pipefail  # Don't hide errors within pipes
+
+trap "echo 'An error occurred! Quitting mid-script!'" ERR
+
+# Uncomment to debug
+# set -x
+
+################################################################################
+
+$4
+endsnippet
+
+snippet args
+function print_usage() {
+	echo "Usage: \$0 $1"
+	exit 1
+}
+
+# Parse command line arguments
+while :; do
+	case \$1 in
+		-h|--help)
+			print_usage
+			;;
+		-f|--file)       # Takes an option argument; ensure it has been specified.
+			if [ "\$2" ]; then
+				file=\$2
+				shift
+			else
+				die 'ERROR: "--file" requires a non-empty option argument.'
+			fi
+			;;
+		--file=?*)
+			file=${1#*=} # Delete everything up to "=" and assign the remainder.
+			;;
+		--file=)         # Handle the case of an empty --file=
+			echo 'ERROR: "--file" requires a non-empty option argument.'
+			exit 1
+			;;
+		-v|--verbose)
+			verbose=$((verbose + 1))  # Each -v adds 1 to verbosity.
+			;;
+		--)              # End of all options.
+			shift
+			break
+			;;
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "\$1" >&2
+			;;
+		*)               # Default case: No more options, so break out of the loop.
+			break
+	esac
+
+	shift
+done
+endsnippet
+
+snippet heredoc
+cat <<- EOF >> $1
+$2
+EOF
+endsnippet

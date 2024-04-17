@@ -1,0 +1,14 @@
+{
+  "languageserver": {
+      "clangd":{
+          "command": "clangd",
+          "args": ["--log=verbose",
+              "--query-driver=/opt/gallus-vivint-wayland/3.24.1/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++"],
+          "rootPatterns": ["compile_commands.json", "build/compile_commands.json"],
+          "filetypes": ["c", "cc", "cpp", "c++", "h", "hpp", "hxx", "cxx"]
+      },
+      "coc-pyright":{
+          "python.venvPath": "/home/tristan/Applications/work-scripts/config"
+      }
+  }
+}
