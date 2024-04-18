@@ -184,7 +184,7 @@ let g:UltiSnipsExpandTrigger = "<C-j>"
 "let g:UltiSnipsJumpBackwardTrigger = "<M-k>"
 
 " Coc settings
-let g:coc_global_extensions = ['coc-json', 'coc-sh', 'coc-git', 'coc-pyright', 'coc-cmake', 'coc-docker', 'coc-go', 'coc-jedi', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-json', 'coc-sh', 'coc-git', 'coc-cmake', 'coc-docker', 'coc-go', 'coc-jedi', 'coc-rust-analyzer']
 set signcolumn=yes
 " Use tab for trigger completion with characters ahead and 
 " Use tab for trigger completion with characters ahead and navigate.
