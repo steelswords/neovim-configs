@@ -52,7 +52,24 @@ vim.opt.list = true
 -- Show a column at 80 characters
 vim.opt.colorcolumn = "81"
 
+-- Add full filename to statusline
+vim.opt.statusline = vim.opt.statusline + "%F"
+
 vim.opt.tags = "tags"
+
+
+----------------------------------------------------
+-- Custom keybindings
+----------------------------------------------------
+-- TODO: S-F11 to turn off search highlighting
+-- TODO: <Leader>g in visual mode shows git blame
+
+-- <Leader>ff shows telescope
+local telescope = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
+vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
+vim.keymap.set('n', '<leader>gl', telescope.git_commits, {})
+vim.keymap.set('n', '<leader>gd', telescope.git_bcommits, {})
 
 
 ----------------------------------------------------
