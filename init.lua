@@ -66,9 +66,53 @@ vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
 vim.keymap.set('n', '<leader>gl', telescope.git_commits, {})
 vim.keymap.set('n', '<leader>gd', telescope.git_bcommits, {})
+vim.keymap.set('v', '<leader>gd', telescope.git_bcommits_range, {})
+
 
 
 ----------------------------------------------------
 -- Colors and Ricing Configuration
 ----------------------------------------------------
 vim.cmd.colorscheme("codedark")
+
+
+----------------------------------------------------
+-- LSP
+----------------------------------------------------
+-- My goal here is simple: I want the best features I can get, while minimizing
+-- the complexity and number of modules, and while maximizing my understanding of
+-- how it works so I can fix it when it breaks. To this end, I use the built-in
+-- Neovim LSP.
+if vim.fn.executable('clangd') then
+    vim.lsp.start({
+        name = 'clangd-lsp-server',
+        cmd = {'clangd'},
+        root_dir = "." --TODO: Something clever here
+    })
+end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+  end,
+})
+
+-- Callback to set up LSP keybindings, depending on what capabilities are available.
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client.server_capabilities.hoverProvider then
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+        end
+
+        -- Showing implementation
+        if client.server_capabilities.implementationProvider then
+            -- TODO: See if buffer args are needed.
+            vim.keymap.set('n', 'C-]', telescope.lsp_implementations, { buffer = args.buf })
+            vim.keymap.set('n', '<Leader>i', telescope.lsp_implementations, { buffer = args.buf })
+        end
+        if client.server_capabilities.definitionsProvider then
+            vim.keymap.set('n', '<Leader>d', telescope.lsp_definitions, { buffer = args.buf })
+        end
+    end
+})
