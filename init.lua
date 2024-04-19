@@ -1,5 +1,16 @@
 ----------------------------------------------------
--- Plugin Manager Configuration
+-- Setup
+----------------------------------------------------
+-- Packages to install:
+--     silversearcher-ag
+--     https://github.com/BurntSushi/ripgrep
+--     Coc:
+--         Run curl -sL install-node.vercel.app/lts | bash
+--         cd ~/.vim/bundle/coc.nvim && npm install
+
+
+----------------------------------------------------
+-- Plugins
 ----------------------------------------------------
 local vim = vim
 local Plug = vim.fn['plug#']
@@ -7,8 +18,41 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
 Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
+Plug("tomasiser/vim-code-dark")
+Plug("nvim-lua/plenary.nvim") -- Required for telescope
+Plug("nvim-telescope/telescope.nvim")
 
 vim.call('plug#end')
+
+----------------------------------------------------
+-- Text appearence configuration
+----------------------------------------------------
+-- Enable hybrid numbers
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.numberwidth = 3
+
+-- Tabs: Use spaces (more universal), and 4 spaces per "Tab".
+vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
+vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while performing editing
+                        -- operations, like <BS>.
+vim.opt.expandtab = true -- Use the appropriate number of spacces to insert a tab
+vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent, like >>
+
+-- Show little glyphs for common whitespace gremlins
+vim.opt.listchars = {
+    tab      = '>·',
+    trail    = '␠',
+    nbsp     = '⎵',
+    extends  = '→',
+    precedes = '←'
+}
+vim.opt.list = true
+
+-- Show a column at 80 characters
+vim.opt.colorcolumn = "81"
+
+vim.opt.tags = "tags"
 
 
 ----------------------------------------------------
@@ -147,4 +191,7 @@ keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
 keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
 
-
+----------------------------------------------------
+-- Colors and Ricing Configuration
+----------------------------------------------------
+vim.cmd.colorscheme("codedark")
