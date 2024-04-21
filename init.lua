@@ -17,6 +17,14 @@ vim.call('plug#begin')
 Plug("tomasiser/vim-code-dark")
 Plug("nvim-lua/plenary.nvim") -- Required for telescope
 Plug("nvim-telescope/telescope.nvim")
+Plug("neovim/nvim-lspconfig")
+Plug("hrsh7th/cmp-nvim-lsp")
+Plug("hrsh7th/cmp-buffer")
+Plug("hrsh7th/cmp-path")
+Plug("hrsh7th/cmp-cmdline")
+Plug("hrsh7th/nvim-cmp")
+Plug("SirVer/ultisnips")
+Plug("quangnguyen30192/cmp-nvim-ultisnips")
 
 vim.call('plug#end')
 
@@ -26,51 +34,130 @@ vim.call('plug#end')
 -- My goal here is simple: I want the best features I can get, while minimizing
 -- the complexity and number of modules, and while maximizing my understanding of
 -- how it works so I can fix it when it breaks. To this end, I use the built-in
--- Neovim LSP.
+-- Neovim LSP with the neovim/nvim-lspconfig as a plugin.
 
 -- TODO: These only work if I source this file, i.e. run this code twice.
 --require('vim.lsp')
 
-lsp_attach_callback = function(args)
-    print("lsp attach 2")
-    print("args 2 = ", args)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
 
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client.server_capabilities.hoverProvider then
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
-    end
+-- Start LSPs
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup {}
+lspconfig.clangd.setup {}
+lspconfig.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
 
-    -- Showing implementation
-    if client.server_capabilities.implementationProvider then
-        -- TODO: See if buffer args are needed.
-        vim.keymap.set('n', 'ti', telescope.lsp_implementations, { buffer = args.buf })
-    end
-    if client.server_capabilities.definitionsProvider then
-        vim.keymap.set('n', 'C-]', telescope.lsp_definitions)
-        vim.keymap.set('n', 'td', telescope.lsp_definitions, { buffer = args.buf })
-    end
-    -- TODO: Wrap these in capabilities checking as welll
-    vim.keymap.set('n', 't<F9>', telescope.lsp_outgoing_calls, { buffer = args.buf })
-    vim.keymap.set('n', 't<F8>', telescope.lsp_incoming_calls, { buffer = args.buf })
-end
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
--- Callback to set up LSP keybindings, depending on what capabilities are available.
-lsp = require('vim.lsp')
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = lsp_attach_callback })
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
--- Start LSPs now that our callbacks are attached to the `LspAttach`
-require('vim.lsp.log').set_format_func(vim.inspect)
-if vim.fn.executable('clangd') then
-    print("starting lsp")
-    vim.lsp.start({
-        name = 'clangd-lsp-server',
-        cmd = {'/usr/bin/clangd'},
-        root_dir = "." --TODO: Something clever here
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+    vim.keymap.set('n', '<C-h>', 'vim.cmd("ClangdSwitchSourceHeader")', nil)
+  end,
+})
+
+-- Set up nvim-cmp.
+local cmp = require'cmp'
+
+cmp.setup({
+    snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+        end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+        { name = 'ultisnips' }, -- For ultisnips users.
+    }, {
+        { name = 'buffer' },
     })
-    print("started.")
-end
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
+})
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- TODO: Make list of lsp servers, or set this up individual files.
+require('lspconfig')['clangd'].setup { capabilities = capabilities }
+require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
+require('lspconfig')['pyright'].setup { capabilities = capabilities }
 
 ----------------------------------------------------
 -- Text appearence configuration
@@ -126,6 +213,3 @@ vim.keymap.set('v', '<leader>gd', telescope.git_bcommits_range, {})
 -- Colors and Ricing Configuration
 ----------------------------------------------------
 vim.cmd.colorscheme("codedark")
-
-
-
