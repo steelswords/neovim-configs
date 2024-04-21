@@ -6,7 +6,14 @@
 --     https://github.com/BurntSushi/ripgrep
 --     clangd
 --     npm i -g pyright
+--     rustup component add rust-analyzer....
 
+-- TODO when I've gotten more used to this setup, and ironed out the kinks:
+--      tpope/vim-surround
+--      automatically installing LSPs with mason.nvim
+--          QML support
+--      Mabye emmet-vim?
+--      Maybe leap.nvim?
 
 ----------------------------------------------------
 -- Plugins
@@ -27,6 +34,7 @@ Plug("hrsh7th/cmp-cmdline")
 Plug("hrsh7th/nvim-cmp")
 Plug("SirVer/ultisnips")
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
+Plug("lewis6991/gitsigns.nvim") -- For git decorations
 
 vim.call('plug#end')
 
@@ -194,6 +202,10 @@ vim.opt.colorcolumn = "81"
 vim.opt.statusline = vim.opt.statusline + "%F"
 
 vim.opt.tags = "tags"
+
+-- Git decorations with gitsigns
+require('gitsigns').setup()
+
 
 
 ----------------------------------------------------
