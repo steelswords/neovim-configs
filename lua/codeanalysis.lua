@@ -16,20 +16,41 @@
 -- TODO: These only work if I source this file, i.e. run this code twice.
 --require('vim.lsp')
 
+-- Install with Mason.nvim
+
+local needed_lsps = {
+    "lua_ls",
+    "rust_analyzer",
+    "clangd",
+    "pyright",
+}
+
+require("mason").setup()
+
+-- Install LSPs with mason
+require("mason-lspconfig").setup {
+    ensure_installed = needed_lsps,
+    automatic_installation = true,
+}
 
 -- Start LSPs
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.clangd.setup {}
-lspconfig.rust_analyzer.setup{
-  settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false;
-      }
-    }
-  }
-}
+
+for i, item in ipairs(needed_lsps)
+do
+    lspconfig[item].setup {}
+end
+
+-- Custom options: We'll set up again.
+--lspconfig.rust_analyzer.setup{
+--  settings = {
+--    ['rust-analyzer'] = {
+--      diagnostics = {
+--        enable = false;
+--      }
+--    }
+--  }
+--}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -133,8 +154,9 @@ cmp.setup.cmdline(':', {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 -- TODO: Make list of lsp servers, or set this up individual files.
-require('lspconfig')['clangd'].setup { capabilities = capabilities }
-require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
-require('lspconfig')['pyright'].setup { capabilities = capabilities }
+for i, item in ipairs(needed_lsps)
+do
+    lspconfig[item].setup { capabilities = capabilities }
+end
 
 
