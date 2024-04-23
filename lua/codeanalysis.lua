@@ -13,45 +13,30 @@
 -- how it works so I can fix it when it breaks. To this end, I use the built-in
 -- Neovim LSP with the neovim/nvim-lspconfig as a plugin.
 
--- TODO: These only work if I source this file, i.e. run this code twice.
---require('vim.lsp')
-
--- Install with Mason.nvim
-
-local needed_lsps = {
+local lsps_with_default_options = {
     "lua_ls",
-    "rust_analyzer",
+    "bashls",
     "clangd",
+}
+local lsps_with_tweaked_options = {
+    "rust_analyzer",
     "pyright",
 }
 
-require("mason").setup()
+local all_lsps = lsps_with_tweaked_options
+for _, value in ipairs(lsps_with_default_options) do
+    table.insert(all_lsps, value)
+end
+
 
 -- Install LSPs with mason
+require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = needed_lsps,
+    ensure_installed = all_lsps,
     automatic_installation = true,
 }
 
--- Start LSPs
-local lspconfig = require('lspconfig')
-
-for i, item in ipairs(needed_lsps)
-do
-    lspconfig[item].setup {}
-end
-
--- Custom options: We'll set up again.
---lspconfig.rust_analyzer.setup{
---  settings = {
---    ['rust-analyzer'] = {
---      diagnostics = {
---        enable = false;
---      }
---    }
---  }
---}
-
+-- Wait until we start nvim-cmp to start LSPs.
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
@@ -111,9 +96,9 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
         { name = 'ultisnips' }, -- For ultisnips users.
@@ -154,9 +139,40 @@ cmp.setup.cmdline(':', {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 -- TODO: Make list of lsp servers, or set this up individual files.
-for i, item in ipairs(needed_lsps)
+
+-- Start LSPs
+local lspconfig = require('lspconfig')
+
+for _, item in ipairs(lsps_with_default_options)
 do
-    lspconfig[item].setup { capabilities = capabilities }
+    lspconfig[item].setup { capabilities = capabilities, }
 end
 
+-- Set up LSPs with tweaked options
+local work_paths = require('loadworkconfig').GetWorkPaths()
 
+lspconfig.rust_analyzer.setup{
+    capabilities = capabilities,
+    settings = {
+        ['rust-analyzer'] = {
+            diagnostics = {
+                enable = false;
+            }
+        }
+    }
+}
+
+lspconfig.pyright.setup {
+    capabilities = capabilities,
+    settings = {
+        pyright = {
+            autoImportCompletions = true,
+        },
+        python = {
+            analysis = {
+                diagnosticMode = "workspace",
+                extraPaths = work_paths.pyright.python.analysis.extraPaths,
+            },
+        },
+    },
+}

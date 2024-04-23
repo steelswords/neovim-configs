@@ -61,6 +61,9 @@
 -- C-<space>  autocomplete complete
 -- <CR>       autocomplete confirm
 --
+-- <leader>gic Show incoming calls in telescope
+-- <leader>goc Show outgoing calls in telescope
+--
 -- Other things that could be configured easily if we want:
 -- - showing definitions, incoming calls, outgoing calls, and other LSP goodness through Telescope
 
