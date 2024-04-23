@@ -22,7 +22,7 @@ vim.keymap.set('n', '<leader>gd', telescope.git_bcommits, {})
 vim.keymap.set('v', '<leader>gd', telescope.git_bcommits_range, {})
 
 vim.keymap.set('n', 'gn', telescope.lsp_incoming_calls, {})
-vim.keymap.set('n', 'gt', telescope.lsp_outgoing_calls, {})
+vim.keymap.set('n', 'gu', telescope.lsp_outgoing_calls, {})
 
 -- Ultisnips
 vim.g.UltiSnipsExpandTrigger="<C-j>"

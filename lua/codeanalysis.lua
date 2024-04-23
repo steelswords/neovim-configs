@@ -16,11 +16,11 @@
 local lsps_with_default_options = {
     "lua_ls",
     "bashls",
-    "clangd",
 }
 local lsps_with_tweaked_options = {
     "rust_analyzer",
     "pyright",
+    "clangd",
 }
 
 local all_lsps = lsps_with_tweaked_options
@@ -149,7 +149,21 @@ do
 end
 
 -- Set up LSPs with tweaked options
-local work_paths = require('loadworkconfig').GetWorkPaths()
+
+print("Python extra paths = "..vim.inspect(Python_extra_paths))
+print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
+
+Python_extra_paths = {}
+Clangd_query_driver = ""
+
+-- Project-specific configuration loading.
+-- Overwrites `python_extra_paths` and `clangd_query_driver`
+require("nvim-projectconfig").setup({
+    project_dir = "/home/tristan/.config/nvim-projects-configs/"
+})
+
+print("Python extra paths = "..vim.inspect(Python_extra_paths))
+print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
 
 lspconfig.rust_analyzer.setup{
     capabilities = capabilities,
@@ -171,8 +185,25 @@ lspconfig.pyright.setup {
         python = {
             analysis = {
                 diagnosticMode = "workspace",
-                extraPaths = work_paths.pyright.python.analysis.extraPaths,
+                extraPaths = Python_extra_paths,
             },
         },
     },
 }
+
+-- TODO: Fix this so it's better
+-- And more extensible. Maybe something like klen/nvim-config-local?
+lspconfig.clangd.setup({
+    cmd = {
+        "clangd",
+        "--pretty",
+        "--log=verbose",
+        "-j=20",
+        "--header-insertion=iwyu",
+        "--pch-storage=memory",
+        "--clang-tidy",
+        "--compile-commands-dir=.",
+        Clangd_query_driver,
+    },
+    filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
+})

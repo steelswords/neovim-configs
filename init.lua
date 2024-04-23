@@ -61,8 +61,8 @@
 -- C-<space>  autocomplete complete
 -- <CR>       autocomplete confirm
 --
--- <leader>gic Show incoming calls in telescope
--- <leader>goc Show outgoing calls in telescope
+-- gn Show incoming calls in telescope
+-- gu Show outgoing calls in telescope
 --
 -- Other things that could be configured easily if we want:
 -- - showing definitions, incoming calls, outgoing calls, and other LSP goodness through Telescope
@@ -89,6 +89,7 @@ Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
 Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
+Plug("windwp/nvim-projectconfig")
 
 vim.call('plug#end')
 
