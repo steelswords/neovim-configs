@@ -150,9 +150,6 @@ end
 
 -- Set up LSPs with tweaked options
 
-print("Python extra paths = "..vim.inspect(Python_extra_paths))
-print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
-
 Python_extra_paths = {}
 Clangd_query_driver = ""
 
@@ -162,8 +159,8 @@ require("nvim-projectconfig").setup({
     project_dir = "/home/tristan/.config/nvim-projects-configs/"
 })
 
-print("Python extra paths = "..vim.inspect(Python_extra_paths))
-print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
+-- print("Python extra paths = "..vim.inspect(Python_extra_paths))
+-- print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
 
 lspconfig.rust_analyzer.setup{
     capabilities = capabilities,
