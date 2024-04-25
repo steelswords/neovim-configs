@@ -87,6 +87,7 @@ Plug("hrsh7th/nvim-cmp")
 Plug("SirVer/ultisnips")
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
+Plug("tpope/vim-fugitive")
 Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")

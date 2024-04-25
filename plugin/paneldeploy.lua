@@ -6,6 +6,7 @@
 -- [ ] Make this a plugin
 -- [ ] Save config to somewhere nicer
 
+
 cached_target_panel='default'
 config_file_path = vim.fn.stdpath('config') .. '/targetpanel.config'
 python_script_file_path = '~/Applications/work-scripts/deploypy.py'
@@ -72,7 +73,7 @@ deploy_python = function(opts)
     print("Deploying ", vim.api.nvim_buf_get_name(0))
     print(" to ", target)
     local file_name = vim.api.nvim_buf_get_name(0)
-    local result_obj = vim.system({'python3',
+    local result_obj = vim.system({
         '/home/tristan/Applications/work-scripts/deploypy.py',
         '--target',
         target,
