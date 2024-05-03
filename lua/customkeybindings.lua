@@ -20,6 +20,7 @@ vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
 vim.keymap.set('n', '<leader>gl', telescope.git_commits, {})
 vim.keymap.set('n', '<leader>gd', telescope.git_bcommits, {})
 vim.keymap.set('v', '<leader>gd', telescope.git_bcommits_range, {})
+vim.keymap.set('v', '<leader>gb', ":Git blame<CR>")
 
 vim.keymap.set('n', 'gn', telescope.lsp_incoming_calls, {})
 vim.keymap.set('n', 'gu', telescope.lsp_outgoing_calls, {})
