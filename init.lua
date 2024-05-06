@@ -35,6 +35,7 @@
 --==================================================
 -- \ff   Telescope find find_files
 -- \fg   Telescope live grep through CWD and children
+-- \fc   Telescope live grep through CWD and children for word under cursor
 -- \gl   Telescope show git commits
 -- \gd   Show buffer's git history in git commits 
 -- C-j   Expand Ultisnips snippet
