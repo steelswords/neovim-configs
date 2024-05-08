@@ -212,7 +212,6 @@ local handlers = {
     end,
 
     ["clangd"] = function()
-        print("Using custom clangd setup")
         lspconfig.clangd.setup({
             capabilities = capabilities,
             cmd = {
