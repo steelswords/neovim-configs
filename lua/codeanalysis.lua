@@ -29,12 +29,6 @@ for _, value in ipairs(lsps_with_default_options) do
 end
 
 
--- Install LSPs with mason
-require("mason").setup()
-require("mason-lspconfig").setup {
-    ensure_installed = all_lsps,
-    automatic_installation = true,
-}
 
 -- Wait until we start nvim-cmp to start LSPs.
 -- Global mappings.
@@ -166,70 +160,79 @@ cmp.setup.cmdline(':', {
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- TODO: Make list of lsp servers, or set this up individual files.
 
 -- Start LSPs
-local lspconfig = require('lspconfig')
-
-for _, item in ipairs(lsps_with_default_options)
-do
-    lspconfig[item].setup { capabilities = capabilities, }
-end
 
 -- Set up LSPs with tweaked options
-
 Python_extra_paths = {}
 Clangd_query_driver = ""
 
 -- Project-specific configuration loading.
--- Overwrites `python_extra_paths` and `clangd_query_driver`
+-- Overwrites `python_extra_paths` and `Clangd_query_driver`
 require("nvim-projectconfig").setup({
     project_dir = "/home/tristan/.config/nvim-projects-configs/"
 })
 
--- print("Python extra paths = "..vim.inspect(Python_extra_paths))
--- print("Clangd query driver = "..vim.inspect(Clangd_query_driver))
-
-lspconfig.rust_analyzer.setup{
-    capabilities = capabilities,
-    settings = {
-        ['rust-analyzer'] = {
-            diagnostics = {
-                enable = false;
+-- Install LSPs with mason
+require("mason").setup()
+local lspconfig = require('lspconfig')
+local handlers = {
+    -- Default handler. Sets up all the LSPs with default options.
+    function (server_name)
+        require('lspconfig')[server_name].setup {}
+    end,
+    ["rust_analyzer"] = function ()
+        lspconfig.rust_analyzer.setup {
+            capabilities = capabilities,
+            settings = {
+                ['rust-analyzer'] = {
+                    diagnostics = {
+                        enable = false;
+                    }
+                }
             }
         }
-    }
-}
+    end,
 
-lspconfig.pyright.setup {
-    capabilities = capabilities,
-    settings = {
-        pyright = {
-            autoImportCompletions = true,
-        },
-        python = {
-            analysis = {
-                diagnosticMode = "workspace",
-                extraPaths = Python_extra_paths,
+    ["pyright"] = function ()
+        lspconfig.pyright.setup {
+            capabilities = capabilities,
+            settings = {
+                pyright = {
+                    autoImportCompletions = true,
+                },
+                python = {
+                    analysis = {
+                        diagnosticMode = "workspace",
+                        extraPaths = Python_extra_paths,
+                    },
+                },
             },
-        },
-    },
-}
+        }
+    end,
 
--- TODO: Fix this so it's better
--- And more extensible. Maybe something like klen/nvim-config-local?
-lspconfig.clangd.setup({
-    cmd = {
-        "clangd",
-        "--pretty",
-        "--log=verbose",
-        "-j=20",
-        "--header-insertion=iwyu",
-        "--pch-storage=memory",
-        "--clang-tidy",
-        "--compile-commands-dir=.",
-        Clangd_query_driver,
-    },
-    filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
+    ["clangd"] = function()
+        print("Using custom clangd setup")
+        lspconfig.clangd.setup({
+            capabilities = capabilities,
+            cmd = {
+                "clangd",
+                "--pretty",
+                "--log=verbose",
+                "-j=20",
+                "--header-insertion=iwyu",
+                "--pch-storage=memory",
+                "--clang-tidy",
+                "--compile-commands-dir=.",
+                "--enable-config",
+                Clangd_query_driver,
+            },
+            filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
+        })
+    end,
+}
+require("mason-lspconfig").setup({
+    ensure_installed = all_lsps,
+    automatic_installation = true,
+    handlers = handlers,
 })
