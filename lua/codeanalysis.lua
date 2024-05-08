@@ -96,14 +96,43 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<tab>'] = cmp.mapping.select_next_item(),
+        ['<S-tab>'] = cmp.mapping.select_prev_item(),
+        ['<C-space>'] = cmp.mapping.complete(), -- i.e. trigger complettion
+        ['<C-q>'] = cmp.mapping.abort(),
+        ['<C-CR>'] = cmp.mapping.confirm({select = true}),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        --['<tab>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        --
+        -- From https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/:
+        -- If the completion menu is visible, move to the next item. If the line is
+        -- "empty", insert a Tab character. If the cursor is inside a word,
+        -- trigger the completion menu.
+        --['<Tab>'] = cmp.mapping(function(fallback)
+        --    local col = vim.fn.col('.') - 1
+
+        --    if cmp.visible() then
+        --        cmp.select_next_item(select_opts)
+        --    elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        --        fallback()
+        --    else
+        --        cmp.complete()
+        --    end
+        --end, {'i', 's'}),
+
+        --['<S-Tab>'] = cmp.mapping(function(fallback)
+        --    if cmp.visible() then
+        --        cmp.select_prev_item(select_opts)
+        --    else
+        --        fallback()
+        --    end
+        --end, {'i', 's'}),
+
     }),
     sources = cmp.config.sources({
         { name = 'ultisnips' }, -- For ultisnips users.
-    }, {
         { name = 'buffer' },
+        { name = 'path' },
     })
 })
 
