@@ -51,8 +51,8 @@
 -- K        show documentation
 -- gi       goto implementation
 -- C-k      signature help
--- <space>D  workspace definition 
--- <space>rn  buffer rename 
+-- <space>D  workspace definition
+-- <space>rn  buffer rename
 -- <space>ca  do code action
 -- gr         show references to buffer
 -- C-h        switch between header and source in cpp
@@ -64,6 +64,8 @@
 --
 -- gn Show incoming calls in telescope
 -- gu Show outgoing calls in telescope
+--
+-- <leader>ts Insert timestamp in Insert mode
 --
 -- Other things that could be configured easily if we want:
 -- - showing definitions, incoming calls, outgoing calls, and other LSP goodness through Telescope
