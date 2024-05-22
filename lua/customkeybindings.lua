@@ -31,3 +31,8 @@ vim.g.UltiSnipsExpandTrigger="<C-j>"
 vim.g.UltiSnipsJumpForwardTrigger="<C-J>"
 vim.g.UltiSnipsJumpBackwardTrigger="<C-K>"
 
+-- Misc
+-- Add timestamp
+vim.keymap.set('i', '<leader>ts', "<C-R>=strftime('%c')<CR>", {remap= true})
+
+
