@@ -85,3 +85,44 @@ function echo_warning() { echo -e "${_YELLOW_TEXT}$*${_CLEAR_TEXT}" }
 function echo_error()   { echo -e "${_RED_TEXT}$*${_CLEAR_TEXT}"    }
 function echo_success() { echo -e "${_GREEN_TEXT}$*${_CLEAR_TEXT}"  }
 endsnippet
+
+snippet argsShort
+function printUsageAndQuit() {
+    echo "$1"
+    exit 1
+}
+
+# Check for the right number of arguments
+if [[ $# -lt 1 ]] || [[ $# -gt 2 ]]
+then
+    printUsageAndQuit
+fi
+
+# Positional arguments
+TARGET="${1-defaulttarget}"
+shift
+
+DEFAULT_VALUE_X="no"
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        -x|--long-form)
+            DEFAULT_VALUE_X="yes"
+            shift
+            ;;
+        *)
+            printUsageAndQuit
+            ;;
+    esac
+done
+endsnippet
+
+snippet sshheredoc
+remote_commands=\$(cat <<- 'ENDSSH'
+$1
+ENDSSH
+)
+
+ssh -t "\$TARGET" "\$remote_commands" &> /dev/null
+endsnippet
