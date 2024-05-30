@@ -30,47 +30,9 @@
 --      Mabye emmet-vim?
 --      Maybe leap.nvim?
 --
---==================================================
--- QUICK KEYBINDING REFERENCE
---==================================================
--- \ff   Telescope find find_files
--- \fg   Telescope live grep through CWD and children
--- \fc   Telescope live grep through CWD and children for word under cursor
--- \gl   Telescope show git commits
--- \gd   Show buffer's git history in git commits 
--- C-j   Expand Ultisnips snippet
---
---            LSP stuff:
--- <space>e Open float of diagnostics
--- [d       goto previous diagnostic
--- ]d       goto next diagnostic
--- <space>q  vim.diagnostic.setloclist
--- gD       goto declaration
--- gd       goto definition
---
--- K        show documentation
--- gi       goto implementation
--- C-k      signature help
--- <space>D  workspace definition
--- <space>rn  buffer rename
--- <space>ca  do code action
--- gr         show references to buffer
--- C-h        switch between header and source in cpp
--- C-e        abort autocomplete
--- C-b        scroll autocomplete docs
--- C-f        scroll autocomplete docs
--- C-<space>  autocomplete complete
--- <CR>       autocomplete confirm
---
--- gn Show incoming calls in telescope
--- gu Show outgoing calls in telescope
---
--- <leader>ts Insert timestamp in Insert mode
---
 -- Other things that could be configured easily if we want:
--- - showing definitions, incoming calls, outgoing calls, and other LSP goodness through Telescope
-
-----------------------------------------------------
+--   - showing definitions, incoming calls, outgoing calls, and other LSP goodness through Telescope"
+--   - showing definitions, incoming calls------------------------------------------------
 -- Plugins
 ----------------------------------------------------
 local vim = vim
@@ -101,3 +63,4 @@ vim.call('plug#end')
 require('codeanalysis')
 require('appearance')
 require('customkeybindings')
+require('cheatsheet')
