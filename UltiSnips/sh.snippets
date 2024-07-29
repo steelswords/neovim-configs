@@ -79,11 +79,14 @@ snippet colors
 _RED_TEXT='\033[31m'
 _GREEN_TEXT='\033[32m'
 _YELLOW_TEXT='\033[33m'
+_BLUE_TEXT='\033[34m'
 _CLEAR_TEXT='\033[0m'
+_BOLD_TEXT='\033[1m'
 
-function echo_warning() { echo -e "${_YELLOW_TEXT}$*${_CLEAR_TEXT}" }
-function echo_error()   { echo -e "${_RED_TEXT}$*${_CLEAR_TEXT}"    }
-function echo_success() { echo -e "${_GREEN_TEXT}$*${_CLEAR_TEXT}"  }
+function echo_warning() { echo -e "${_YELLOW_TEXT}$*${_CLEAR_TEXT}"; }
+function echo_error()   { echo -e "${_RED_TEXT}$*${_CLEAR_TEXT}";    }
+function echo_success() { echo -e "${_GREEN_TEXT}$*${_CLEAR_TEXT}";  }
+function echo_status()  { echo -e "${_BLUE_TEXT}$*${_CLEAR_TEXT}";   }
 endsnippet
 
 snippet argsShort
