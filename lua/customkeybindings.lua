@@ -25,6 +25,7 @@ vim.keymap.set('v', '<leader>gb', ":Git blame<CR>")
 
 vim.keymap.set('n', 'gn', telescope.lsp_incoming_calls, {})
 vim.keymap.set('n', 'gu', telescope.lsp_outgoing_calls, {})
+vim.keymap.set('n', '<leader>fs', telescope.lsp_document_symbols, {})
 
 -- Ultisnips
 vim.g.UltiSnipsExpandTrigger="<C-j>"
