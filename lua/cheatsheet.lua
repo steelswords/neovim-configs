@@ -24,6 +24,7 @@ local function show_scrollable_popup()
     " <space>q  vim.diagnostic.setloclist",
     " gD       goto declaration",
     " gd       goto definition",
+    " \\fs     Show symbols in current buffer",
     "",
     " K        show documentation",
     " gi       goto implementation",
