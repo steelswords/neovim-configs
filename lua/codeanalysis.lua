@@ -219,6 +219,7 @@ local handlers = {
                 "--log=verbose",
                 "-j=20",
                 "--header-insertion=iwyu",
+                "--offset-encoding=utf-16",
                 "--pch-storage=memory",
                 "--clang-tidy",
                 "--compile-commands-dir=.",
