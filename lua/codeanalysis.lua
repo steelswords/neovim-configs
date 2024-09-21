@@ -224,7 +224,6 @@ local handlers = {
                 "--clang-tidy",
                 "--compile-commands-dir=.",
                 "--enable-config",
-                Clangd_query_driver,
             },
             filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
         })
