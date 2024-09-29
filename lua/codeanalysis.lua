@@ -246,3 +246,4 @@ require("mason-lspconfig").setup({
     handlers = handlers,
 })
 lspconfig.qmlls.setup{}
+-- Rusttools requires something
