@@ -92,6 +92,7 @@ Plug("tpope/vim-fugitive")
 Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")
+Plug("git@github.com:mrcjkb/rustaceanvim")
 
 vim.call('plug#end')
 

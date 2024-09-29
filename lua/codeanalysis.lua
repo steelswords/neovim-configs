@@ -18,7 +18,7 @@ local lsps_with_default_options = {
     "bashls",
 }
 local lsps_with_tweaked_options = {
-    "rust_analyzer",
+    --"rust_analyzer",
     "pyright",
     "clangd",
 }
@@ -181,18 +181,28 @@ local handlers = {
     function (server_name)
         require('lspconfig')[server_name].setup {}
     end,
-    ["rust_analyzer"] = function ()
-        lspconfig.rust_analyzer.setup {
-            capabilities = capabilities,
-            settings = {
-                ['rust-analyzer'] = {
-                    diagnostics = {
-                        enable = false;
-                    }
-                }
-            }
-        }
-    end,
+-- rustaceanvim requires us not to set this up through nvim-lspconfig
+--    ["rust_analyzer"] = function ()
+--        lspconfig.rust_analyzer.setup {
+--            capabilities = capabilities,
+--            settings = {
+--                ['rust-analyzer'] = {
+--                    --diagnostics.enable = true
+--                    --diagnostics = {
+--                    --    enable = true;
+--                    --},
+--                    --completion = {
+--                    --    autoimport {
+--                    --        enable = true
+--                    --    },
+--                    --    autoself {
+--                    --        enable = true
+--                    --    }
+--                    --}
+--                }
+--            }
+--        }
+--    end,
 
     ["pyright"] = function ()
         lspconfig.pyright.setup {
@@ -234,3 +244,5 @@ require("mason-lspconfig").setup({
     automatic_installation = true,
     handlers = handlers,
 })
+
+-- Rusttools requires something
