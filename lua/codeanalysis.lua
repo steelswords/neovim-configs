@@ -127,6 +127,7 @@ cmp.setup({
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'buffer' },
         { name = 'path' },
+        { name = 'nvim_lsp' },
     })
 })
 
