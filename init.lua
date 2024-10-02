@@ -80,11 +80,11 @@ Plug("tomasiser/vim-code-dark")
 Plug("nvim-lua/plenary.nvim") -- Required for telescope
 Plug("nvim-telescope/telescope.nvim")
 Plug("neovim/nvim-lspconfig")
+Plug("hrsh7th/nvim-cmp")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
-Plug("hrsh7th/nvim-cmp")
 Plug("SirVer/ultisnips")
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
@@ -92,6 +92,7 @@ Plug("tpope/vim-fugitive")
 Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")
+Plug("git@github.com:mrcjkb/rustaceanvim")
 
 vim.call('plug#end')
 
