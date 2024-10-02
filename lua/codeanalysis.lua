@@ -165,7 +165,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Set up LSPs with tweaked options
 Python_extra_paths = {}
-Clangd_query_driver = ""
 
 -- Project-specific configuration loading.
 -- Overwrites `python_extra_paths` and `Clangd_query_driver`
@@ -223,8 +222,7 @@ local handlers = {
                 "--pch-storage=memory",
                 "--clang-tidy",
                 "--compile-commands-dir=.",
-                "--enable-config",
-                Clangd_query_driver,
+                "--enable-config"
             },
             filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
         })
