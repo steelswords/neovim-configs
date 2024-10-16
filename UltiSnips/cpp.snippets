@@ -41,3 +41,16 @@ snippet incguard
 
 #endif /* $1 */
 endsnippet
+
+snippet random
+#include <random>
+std::random_device device;
+std::mt19937 rng(device());
+
+// Range is [1, 6]
+// Other types include normal_distribution, uniform_real_distribution, just about
+// any kind of probability distribution you'd like.
+std::uniform_int_distribution<> dist(1,6);
+
+int random_number = dist(rng);
+endsnippet
