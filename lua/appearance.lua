@@ -1,5 +1,5 @@
 ----------------------------------------------------
--- Text appearence configuration
+-- Text appearance configuration
 ----------------------------------------------------
 -- Enable hybrid numbers
 vim.opt.number = true
@@ -32,7 +32,12 @@ vim.opt.statusline = vim.opt.statusline + "%F"
 vim.opt.tags = "tags"
 
 -- Git decorations with gitsigns
-require('gitsigns').setup()
+local gitsigns = require('gitsigns')
+gitsigns.setup()
+
+vim.keymap.set('v', '<leader>gs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+vim.keymap.set('v', '<leader>gr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+vim.keymap.set('n', '<leader>bd', gitsigns.diffthis)
 
 ----------------------------------------------------
 -- Colors and Ricing Configuration
