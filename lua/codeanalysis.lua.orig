@@ -127,7 +127,6 @@ cmp.setup({
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'buffer' },
         { name = 'path' },
-        { name = 'nvim_lsp' },
     })
 })
 
@@ -245,5 +244,9 @@ require("mason-lspconfig").setup({
     automatic_installation = true,
     handlers = handlers,
 })
+<<<<<<< HEAD
 lspconfig.qmlls.setup{}
+=======
+
 -- Rusttools requires something
+>>>>>>> 7250e09 (Move rust LSP to rustaceanvim)
