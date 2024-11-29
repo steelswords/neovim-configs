@@ -96,6 +96,7 @@ cmp.setup({
         ['<C-space>'] = cmp.mapping.complete(), -- i.e. trigger complettion
         ['<C-q>'] = cmp.mapping.abort(),
         ['<C-CR>'] = cmp.mapping.confirm({select = true}),
+        ['<C-j'] = cmp.mapping.confirm({select = true}),
         ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         --['<tab>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         --
