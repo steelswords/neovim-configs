@@ -247,3 +247,7 @@ require("mason-lspconfig").setup({
 })
 lspconfig.qmlls.setup{}
 -- Rusttools requires something
+
+
+-- Stop all the ridiculous logging from LSP. This thing starts to take up gigabytes
+vim.lsp.set_log_level("ERROR")
