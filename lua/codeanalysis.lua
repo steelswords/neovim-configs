@@ -16,6 +16,7 @@
 local lsps_with_default_options = {
     "lua_ls",
     "bashls",
+    "biome",
 }
 local lsps_with_tweaked_options = {
     --"rust_analyzer",
