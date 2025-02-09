@@ -63,6 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
@@ -248,6 +249,20 @@ require("mason-lspconfig").setup({
 })
 lspconfig.qmlls.setup{}
 -- Rusttools requires something
+
+-- Flutter tools
+require('flutter-tools').setup {
+    ui = {
+        border = 'rounded',
+    },
+    decoreations = {
+        statusline = {
+            device = true,
+            project_config = true,
+            app_version = true,
+        }
+    },
+}
 
 
 -- Stop all the ridiculous logging from LSP. This thing starts to take up gigabytes

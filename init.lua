@@ -59,6 +59,11 @@ Plug("windwp/nvim-projectconfig")
 Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile")
 
+-- For flutter
+Plug('stevearc/dressing.nvim') -- optional for vim.ui.select
+Plug('nvim-flutter/flutter-tools.nvim')
+
+
 vim.call('plug#end')
 
 require('codeanalysis')
