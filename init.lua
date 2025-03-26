@@ -27,7 +27,7 @@
 --      tpope/vim-surround
 --      automatically installing LSPs with mason.nvim
 --          QML support
---      Mabye emmet-vim?
+--      Maybe emmet-vim?
 --      Maybe leap.nvim?
 --
 -- Other things that could be configured easily if we want:
@@ -58,6 +58,24 @@ Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")
 Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile")
+Plug("sindrets/diffview.nvim")
+
+-- Leaving this in here for a bit until I'm sure I don't want it in.
+--local should_use_gitlab_plugin = os.getenv("GITLAB_TOKEN")
+--if should_use_gitlab_plugin then
+--    Plug("MunifTanjim/nui.nvim")
+--    -- Plug("nvim-lua/plenary.nvim")
+--    Plug("stevearc/dressing.nvim") -- Recommended but not required. Better UI for pickers.
+--    Plug("nvim-tree/nvim-web-devicons") -- Recommended but not required. Icons in discussion tree.
+--    -- The actual plugin:
+--    Plug("harrisoncramer/gitlab.nvim", { -- For gitlab MRs
+--        ['do'] = function()
+--            require('diffview')
+--            print("Building GO Gitlab API server...")
+--            require('gitlab.server').build()
+--        end
+--    })
+--end -- use gitlab.nvim plugin
 
 vim.call('plug#end')
 
@@ -65,6 +83,9 @@ require('codeanalysis')
 require('appearance')
 require('customkeybindings')
 require('cheatsheet')
+-- if should_use_gitlab_plugin then
+--     require('gitlab_config')
+-- end
 
 ----vim.opt.termguicolors = true
 --vim.cmd [[
