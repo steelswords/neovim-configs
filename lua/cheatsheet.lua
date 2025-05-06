@@ -48,6 +48,10 @@ local function show_scrollable_popup()
     "",
     " <leader>ts Insert timestamp in Insert mode",
     "",
+    "Cool Commands:",
+    "",
+    "ShowTypeHierarchy      Shows the type hierarchy as deduced by the LSP",
+    "",
   }
 
   -- Create a new buffer

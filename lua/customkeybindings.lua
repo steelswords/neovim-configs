@@ -37,3 +37,4 @@ vim.g.UltiSnipsJumpBackwardTrigger="<C-K>"
 vim.keymap.set('i', '<leader>ts', "<C-R>=strftime('%c')<CR>", {remap= true})
 
 
+vim.api.nvim_create_user_command('ShowTypeHierarchy', vim.lsp.buf.typehierarchy, {})
