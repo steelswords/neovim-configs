@@ -1,3 +1,4 @@
 *.sw*
 lua/my_work_paths.lua
 private/*
+targetpanel.config
