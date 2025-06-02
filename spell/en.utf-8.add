@@ -26,3 +26,7 @@ GPIO
 TTY
 SWD
 config
+Iotivity
+OCF
+IOT
+Sundance
