@@ -17,3 +17,17 @@ endsnippet
 snippet richstatus
 with console.status("$1"):
 endsnippet
+
+snippet csv
+# import csv
+with open($1, newline='') as csvfile:
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		try:
+			# CSV values can be accessed as row['headername']
+			$2
+		except (ValueError, KeyError) as e:
+			print(f"Skipping row due to error: {e}")
+			continue
+endsnippet
+
