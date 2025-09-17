@@ -62,6 +62,13 @@ Plug("isobit/vim-caddyfile")
 Plug("sindrets/diffview.nvim")
 Plug("nomnivore/ollama.nvim")
 
+
+-- Conditionally install this plugin if hostname is "vivint-laptop"
+local hostname = vim.fn.hostname()
+if hostname == "vivint-laptop" then
+    Plug("github/copilot.vim")
+end
+
 -- Leaving this in here for a bit until I'm sure I don't want it in.
 --local should_use_gitlab_plugin = os.getenv("GITLAB_TOKEN")
 --if should_use_gitlab_plugin then

@@ -72,6 +72,35 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- Only run Copilot on my work laptop.
+local hostname = vim.fn.hostname()
+if hostname == "vivint-laptop" then
+    -- LLMs really do not know what they're doing half the time.
+    -- The best way I ever got this to work was to just leave Copilot disabled
+    -- by default, and run ":Copilot enable" when I want some LLM action.
+    -- Then I use the default tab completion and run ":Copilot disable" when I'm
+    -- done. 🤷
+
+    -- Set up Github copilot keybindings
+    --vim.g.copilot_no_tab_map = true
+
+    -- Disable suggestions automatically, since they hurt my flow.
+    --vim.g.copilot.set_config({
+    --    suggestion = { enabled = false },
+    --    panel = { enabled = false },
+    --})
+
+    vim.g.copilot_enabled = false
+    --
+    --
+    --vim.keymap.set("i", "<C-CR>", vim.fn['copilot#Accept("<CR>")'], { expr = true, replace_keycodes=false })
+    --vim.keymap.set("i", "<C-g>", vim.fn["copilot#Suggest"],  { expr=true })
+    --vim.keymap.set("i", "<C-/>", 'copilot#Previous()', { silent = true, expr = true })
+    --vim.keymap.set("i", "<C-?>", 'copilot#Next()', { silent = true, expr = true })
+    --vim.keymap.set("i", "<C-X>", 'copilot#Dismiss()', { silent = true, expr = true })
+    --
+end
+
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 
@@ -95,7 +124,8 @@ cmp.setup({
         ['<S-tab>'] = cmp.mapping.select_prev_item(),
         ['<C-space>'] = cmp.mapping.complete(), -- i.e. trigger complettion
         ['<C-q>'] = cmp.mapping.abort(),
-        ['<C-CR>'] = cmp.mapping.confirm({select = true}),
+        --['<C-CR>'] = cmp.mapping.confirm({select = true}),
+        -- Appropriating this for Github Copilot
         ['<C-j'] = cmp.mapping.confirm({select = true}),
         ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         --['<tab>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
