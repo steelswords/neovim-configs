@@ -12,3 +12,8 @@ snippet mainresult
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 endsnippet
+
+snippet serde
+#[derive(Serialize, Deserialize, Debug)]
+endsnippet serde
+endsnippet
