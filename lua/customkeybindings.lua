@@ -15,6 +15,7 @@
 
 -- <Leader>ff shows telescope
 local telescope = require('telescope.builtin')
+--local llm = require('llm')
 vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
 vim.keymap.set('n', '<leader>fc', telescope.grep_string, {})
@@ -38,3 +39,7 @@ vim.keymap.set('i', '<leader>ts', "<C-R>=strftime('%c')<CR>", {remap= true})
 
 
 vim.api.nvim_create_user_command('ShowTypeHierarchy', vim.lsp.buf.typehierarchy, {})
+
+-- Ollama
+vim.keymap.set('n', '<leader>p', 'Ollama')
+--vim.keymap.set('i', '<c-p>', llm.Get_Ollama_Handle().prompt('Generate_Code'), {})

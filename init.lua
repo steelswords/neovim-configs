@@ -13,6 +13,7 @@
 --                 bunch of copy-pasted nonsense from the web.
 --------------------------------------------------------------------------------
 
+
 ----------------------------------------------------
 -- Setup
 ----------------------------------------------------
@@ -59,6 +60,7 @@ Plug("windwp/nvim-projectconfig")
 Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile")
 Plug("sindrets/diffview.nvim")
+Plug("nomnivore/ollama.nvim")
 
 -- Leaving this in here for a bit until I'm sure I don't want it in.
 --local should_use_gitlab_plugin = os.getenv("GITLAB_TOKEN")
@@ -83,6 +85,7 @@ require('codeanalysis')
 require('appearance')
 require('customkeybindings')
 require('cheatsheet')
+require('llm')
 -- if should_use_gitlab_plugin then
 --     require('gitlab_config')
 -- end
