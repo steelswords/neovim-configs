@@ -207,11 +207,10 @@ require("nvim-projectconfig").setup({
 
 -- Install LSPs with mason
 require("mason").setup()
-local lspconfig = require('lspconfig')
 local handlers = {
     -- Default handler. Sets up all the LSPs with default options.
     function (server_name)
-        require('lspconfig')[server_name].setup {}
+        vim.lsp.config[server_name].setup {}
     end,
 -- rustaceanvim requires us not to set this up through nvim-lspconfig
 --    ["rust_analyzer"] = function ()
@@ -237,7 +236,7 @@ local handlers = {
 --    end,
 
     ["pyright"] = function ()
-        lspconfig.pyright.setup {
+        vim.lsp.config['pyright'].setup {
             capabilities = capabilities,
             settings = {
                 pyright = {
@@ -254,7 +253,7 @@ local handlers = {
     end,
 
     ["clangd"] = function()
-        lspconfig.clangd.setup({
+        vim.lsp.config['clangd'].setup({
             capabilities = capabilities,
             cmd = {
                 "clangd",
@@ -277,7 +276,8 @@ require("mason-lspconfig").setup({
     automatic_installation = true,
     handlers = handlers,
 })
-lspconfig.qmlls.setup{}
+
+--vim.lsp.config['qmlls'].setup( { })
 -- Rusttools requires something
 
 
