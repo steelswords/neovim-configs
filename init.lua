@@ -61,6 +61,7 @@ Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile")
 Plug("sindrets/diffview.nvim")
 Plug("nomnivore/ollama.nvim")
+Plug("p00f/clangd_extensions.nvim")
 
 
 -- Conditionally install this plugin if hostname is "vivint-laptop"

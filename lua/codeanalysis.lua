@@ -277,6 +277,10 @@ require("mason-lspconfig").setup({
     handlers = handlers,
 })
 
+-- This plugin gives me header/source switching and some other goodies that aren't
+-- standard in the clangd lsp.
+require("clangd_extensions")
+
 --vim.lsp.config['qmlls'].setup( { })
 -- Rusttools requires something
 
