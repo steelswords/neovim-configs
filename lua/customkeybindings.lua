@@ -43,3 +43,16 @@ vim.api.nvim_create_user_command('ShowTypeHierarchy', vim.lsp.buf.typehierarchy,
 -- Ollama
 vim.keymap.set('n', '<leader>p', 'Ollama')
 --vim.keymap.set('i', '<c-p>', llm.Get_Ollama_Handle().prompt('Generate_Code'), {})
+
+-- Copilot
+local function toggle_copilot()
+    local copilot_status = vim.g.copilot_enabled
+    if copilot_status == 1 then
+        vim.g.copilot_enabled = 0
+        print("Copilot disabled")
+    else
+        vim.g.copilot_enabled = 1
+        print("Copilot enabled")
+    end
+end
+vim.keymap.set('n', '<leader>c', toggle_copilot, {})
