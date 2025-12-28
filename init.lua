@@ -63,6 +63,16 @@ Plug("sindrets/diffview.nvim")
 Plug("nomnivore/ollama.nvim")
 Plug("p00f/clangd_extensions.nvim")
 
+-- For avante
+Plug('echasnovski/mini.icons')
+Plug('HakonHarnes/img-clip.nvim')
+Plug('zbirenbaum/copilot.lua')
+Plug('stevearc/dressing.nvim') -- for enhanced input UI
+Plug('folke/snacks.nvim') -- for modern input UI
+Plug('MeanderingProgrammer/render-markdown.nvim')
+Plug('MunifTanjim/nui.nvim')
+Plug('yetone/avante.nvim', { ['branch'] = 'master', ['do'] = 'make'})
+
 
 -- Conditionally install this plugin if hostname is "vivint-laptop"
 local hostname = vim.fn.hostname()

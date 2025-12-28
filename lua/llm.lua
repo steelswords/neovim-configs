@@ -23,4 +23,31 @@ end
 
 M.Get_Ollama_Handle()
 
+require('img-clip').setup({})
+require('copilot').setup({})
+require('render-markdown').setup({
+    opts = {
+        file_types = { "markdown", "Avante" },
+    },
+    ft = { "markdown", "Avante" },
+})
+require('avante').setup({
+    auto_suggestions_provider = "ollama",
+    provider = "ollama",
+    providers = {
+        ollama = {
+            model = "qwen2.5-coder:3b",
+        },
+    },
+    rag_service = {
+        enabled = false,
+        host_mount = vim.fn.expand("."),
+        llm = {
+            provider = "ollama",
+        }
+    },
+})
+
 return M
+
+
