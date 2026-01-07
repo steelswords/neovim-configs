@@ -108,6 +108,9 @@ require('avante').setup({
             provider = "ollama",
         }
     },
+    web_search_engine = {
+        provider = "tavily"
+    },
 })
 
 return M
