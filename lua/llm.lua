@@ -33,29 +33,32 @@ M.Get_Ollama_Handle()
 require('img-clip').setup({})
 
 -- Copilot
-require('copilot').setup({
-    suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-            accept = "<C-g>",
-            accept_word = false,
-            accept_line = false,
-            next = "<C-Tab>",
-            prev = "<C-S-Tab>",
-        },
-    }
-})
-local function toggle_copilot()
-    local suggestions = require('copilot.suggestion')
-    if suggestions.auto_trigger then
-        print("Copilot suggestions disabled")
-    else
-        print("Copilot suggestions enabled")
+local hostname = vim.fn.hostname()
+if hostname == "vivint-laptop" then
+    require('copilot').setup({
+        suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            keymap = {
+                accept = "<C-g>",
+                accept_word = false,
+                accept_line = false,
+                next = "<C-Tab>",
+                prev = "<C-S-Tab>",
+            },
+        }
+    })
+    local function toggle_copilot()
+        local suggestions = require('copilot.suggestion')
+        if suggestions.auto_trigger then
+            print("Copilot suggestions disabled")
+        else
+            print("Copilot suggestions enabled")
+        end
+        suggestions.toggle_auto_trigger()
     end
-    suggestions.toggle_auto_trigger()
+    vim.keymap.set('n', '<leader>c', toggle_copilot, {})
 end
-vim.keymap.set('n', '<leader>c', toggle_copilot, {})
 
 require('render-markdown').setup({
     opts = {
