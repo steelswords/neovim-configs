@@ -299,3 +299,11 @@ require("clangd_extensions")
 
 -- Stop all the ridiculous logging from LSP. This thing starts to take up gigabytes
 vim.lsp.set_log_level("ERROR")
+
+-- Set the textwidth to 80 automatically for text-based files.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.cmd("set textwidth=80")
+    end,
+})
