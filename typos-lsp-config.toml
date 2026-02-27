@@ -1,0 +1,6 @@
+# From the docs:
+# Map word typos to their corrections. When the correction is blank, the word is
+# never valid. When the correction is the key, the word is always valid.
+[default.extend-words]
+
+

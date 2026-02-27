@@ -22,6 +22,7 @@ local lsps_with_tweaked_options = {
     --"rust_analyzer",
     "pyright",
     "clangd",
+    "typos_lsp",
 }
 
 local all_lsps = lsps_with_tweaked_options
@@ -269,6 +270,17 @@ local handlers = {
             },
             filetypes = { "c", "cpp", "h", "hpp", "cuda", "proto" },
         })
+    end,
+
+    ["typos_lsp"] = function ()
+        vim.lsp.config['typos_lsp'].setup {
+            capabilities = capabilities,
+            settings = {
+                initialization_options = {
+                    config = "typos-lsp-config.toml",
+                },
+            },
+        }
     end,
 }
 require("mason-lspconfig").setup({
