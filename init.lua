@@ -57,7 +57,7 @@ Plug("tpope/vim-fugitive")
 Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")
-Plug("git@github.com:mrcjkb/rustaceanvim")
+--Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile")
 Plug("sindrets/diffview.nvim")
 Plug("nomnivore/ollama.nvim")
