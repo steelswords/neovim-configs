@@ -213,6 +213,28 @@ local handlers = {
     function (server_name)
         vim.lsp.config[server_name].setup {}
     end,
+-- rustaceanvim requires us not to set this up through nvim-lspconfig
+--    ["rust_analyzer"] = function ()
+--        lspconfig.rust_analyzer.setup {
+--            capabilities = capabilities,
+--            settings = {
+--                ['rust-analyzer'] = {
+--                    --diagnostics.enable = true
+--                    --diagnostics = {
+--                    --    enable = true;
+--                    --},
+--                    --completion = {
+--                    --    autoimport {
+--                    --        enable = true
+--                    --    },
+--                    --    autoself {
+--                    --        enable = true
+--                    --    }
+--                    --}
+--                }
+--            }
+--        }
+--    end,
 
     ["pyright"] = function ()
         vim.lsp.config['pyright'].setup {
