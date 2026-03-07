@@ -80,6 +80,8 @@ if hostname == "vivint-laptop" then
     -- Plug("github/copilot.vim")
     Plug('zbirenbaum/copilot.lua')
     Plug("copilotlsp-nvim/copilot-lsp")
+else
+    Plug('greggh/claude-code.nvim')
 end
 
 -- Leaving this in here for a bit until I'm sure I don't want it in.
@@ -105,8 +107,13 @@ require('codeanalysis')
 require('appearance')
 require('customkeybindings')
 require('cheatsheet')
-require('llm')
 require('ascii')
+
+require('llm')
+if hostname ~= "vivint-laptop" then
+    require('llm-home')
+end
+
 -- if should_use_gitlab_plugin then
 --     require('gitlab_config')
 -- end
