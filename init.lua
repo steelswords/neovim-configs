@@ -51,6 +51,7 @@ Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
 Plug("SirVer/ultisnips")
+Plug('jbyuki/venn.nvim')
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
 Plug("tpope/vim-fugitive")
@@ -105,6 +106,7 @@ require('appearance')
 require('customkeybindings')
 require('cheatsheet')
 require('llm')
+require('ascii')
 -- if should_use_gitlab_plugin then
 --     require('gitlab_config')
 -- end
