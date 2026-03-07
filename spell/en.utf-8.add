@@ -38,3 +38,7 @@ timestamped
 MCU
 WNC
 POC
+setpoint
+MQTT
+OTA
+mA
