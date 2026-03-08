@@ -34,7 +34,7 @@ require('img-clip').setup({})
 
 -- Copilot
 local hostname = vim.fn.hostname()
-if hostname == "vivint-laptop" then
+--if hostname == "vivint-laptop" then
     require('copilot').setup({
         suggestion = {
             enabled = true,
@@ -58,7 +58,7 @@ if hostname == "vivint-laptop" then
         suggestions.toggle_auto_trigger()
     end
     vim.keymap.set('n', '<leader>c', toggle_copilot, {})
-end
+--end
 
 require('render-markdown').setup({
     opts = {

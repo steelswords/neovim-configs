@@ -73,15 +73,16 @@ Plug('MeanderingProgrammer/render-markdown.nvim')
 Plug('MunifTanjim/nui.nvim')
 Plug('yetone/avante.nvim', { ['branch'] = 'main', ['do'] = 'make'})
 
+Plug('zbirenbaum/copilot.lua')
+Plug("copilotlsp-nvim/copilot-lsp")
+Plug('olimorris/codecompanion.nvim')
+Plug('milanglacier/minuet-ai.nvim')
 
 -- Conditionally install this plugin if hostname is "vivint-laptop"
 local hostname = vim.fn.hostname()
 if hostname == "vivint-laptop" then
-    -- Plug("github/copilot.vim")
-    Plug('zbirenbaum/copilot.lua')
-    Plug("copilotlsp-nvim/copilot-lsp")
 else
-    Plug('greggh/claude-code.nvim')
+    -- Plug('greggh/claude-code.nvim')
 end
 
 -- Leaving this in here for a bit until I'm sure I don't want it in.
