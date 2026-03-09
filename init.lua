@@ -51,6 +51,7 @@ Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
 Plug("SirVer/ultisnips")
+Plug('jbyuki/venn.nvim')
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
 Plug("tpope/vim-fugitive")
@@ -72,13 +73,16 @@ Plug('MeanderingProgrammer/render-markdown.nvim')
 Plug('MunifTanjim/nui.nvim')
 Plug('yetone/avante.nvim', { ['branch'] = 'main', ['do'] = 'make'})
 
+Plug('zbirenbaum/copilot.lua')
+Plug("copilotlsp-nvim/copilot-lsp")
+Plug('olimorris/codecompanion.nvim')
+Plug('milanglacier/minuet-ai.nvim')
 
 -- Conditionally install this plugin if hostname is "vivint-laptop"
 local hostname = vim.fn.hostname()
 if hostname == "vivint-laptop" then
-    -- Plug("github/copilot.vim")
-    Plug('zbirenbaum/copilot.lua')
-    Plug("copilotlsp-nvim/copilot-lsp")
+else
+    -- Plug('greggh/claude-code.nvim')
 end
 
 -- Leaving this in here for a bit until I'm sure I don't want it in.
@@ -104,7 +108,13 @@ require('codeanalysis')
 require('appearance')
 require('customkeybindings')
 require('cheatsheet')
+require('ascii')
+
 require('llm')
+if hostname ~= "vivint-laptop" then
+    require('llm-home')
+end
+
 -- if should_use_gitlab_plugin then
 --     require('gitlab_config')
 -- end
