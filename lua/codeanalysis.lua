@@ -211,7 +211,9 @@ require("mason").setup()
 local handlers = {
     -- Default handler. Sets up all the LSPs with default options.
     function (server_name)
-        vim.lsp.config[server_name].setup {}
+        vim.lsp.config[server_name].setup {
+            capabilities = capabilities,
+        }
     end,
 -- rustaceanvim requires us not to set this up through nvim-lspconfig
 --    ["rust_analyzer"] = function ()
