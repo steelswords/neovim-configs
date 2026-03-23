@@ -309,3 +309,23 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.cmd("set textwidth=80")
     end,
 })
+
+-- Set up rustaceanvim.
+vim.g.rustaceanvim = {
+    tools = {},
+    server = {
+        on_attach = function(client, bufnr)
+            -- TODO: Put keybindings here.
+        end,
+        default_settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    features = 'all',
+                },
+                check = {
+                    allTargets = true,
+                },
+            }
+        }
+    }
+}
