@@ -1,8 +1,7 @@
 --------------------------------------------------------------------------------
 -- Name:           codeanalysis.lua
 -- Author:         Tristan Andrus
--- Date of Origin: 21 April 2024
--- Description:    Neovim configs for LSPs and autocompletion stuff.
+-- Date of Origin: 21 April 2024 Description:    Neovim configs for LSPs and autocompletion stuff.
 --------------------------------------------------------------------------------
 
 ----------------------------------------------------
@@ -304,7 +303,7 @@ vim.lsp.set_log_level("ERROR")
 
 -- Set the textwidth to 80 automatically for text-based files.
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
+    pattern = {"*.md", "*.txt", "*.tex"},
     callback = function()
         vim.cmd("set textwidth=80")
     end,
