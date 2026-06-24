@@ -73,6 +73,8 @@ Plug('MeanderingProgrammer/render-markdown.nvim')
 Plug('MunifTanjim/nui.nvim')
 Plug('yetone/avante.nvim', { ['branch'] = 'main', ['do'] = 'make'})
 
+-- TODO: Migrate to minuet-ai https://github.com/milanglacier/minuet-ai.nvim for virtual_text support.
+-- TODO: Install claude.nvim https://github.com/pasky/claude.vim
 Plug('zbirenbaum/copilot.lua')
 Plug("copilotlsp-nvim/copilot-lsp")
 Plug('olimorris/codecompanion.nvim')
