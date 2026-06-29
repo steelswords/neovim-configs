@@ -55,8 +55,15 @@ Plug('jbyuki/venn.nvim')
 Plug("quangnguyen30192/cmp-nvim-ultisnips")
 Plug("lewis6991/gitsigns.nvim") -- For git decorations
 Plug("tpope/vim-fugitive")
-Plug("williamboman/mason.nvim") -- For automatic LSP installation
-Plug("williamboman/mason-lspconfig.nvim")
+
+-- For automatic LSP installation
+-- Note: mason and mason-lspconfig like to rewrite their tags for `stable`.
+-- This post-update hook helps by telling git it's fine to clobber tags, so that
+-- we can complete a `git pull` and successfully update
+-- Thanks to @scarlehoff for this tip: https://github.com/junegunn/vim-plug/issues/1279
+Plug("williamboman/mason.nvim", {['do'] = 'git config fetch.pruneTags false'})
+Plug("williamboman/mason-lspconfig.nvim", {['do'] = 'git config fetch.pruneTags false'})
+
 Plug("windwp/nvim-projectconfig")
 Plug("git@github.com:mrcjkb/rustaceanvim")
 Plug("isobit/vim-caddyfile", {['for'] = 'caddyfile'})

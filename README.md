@@ -8,7 +8,7 @@
 
 # FAQs & Helpful Tips
 
-## mason-lspconfig always fails on a `:PlugUpdate`.
+## mason and mason-lspconfig always fail on a `:PlugUpdate`.
 
 Yeah, it does that because it overwrites the `stable` tag every time. Git
 (rightfully, IMO) balks because that would overwrite data.
@@ -17,7 +17,7 @@ To fix it, cd to
 `~/.local/share/nvim/plugged/mason-lspconfig.nvim` and run
 ```
 git fetch --tags --force
-git config fetch.pruneTags true
+git config fetch.pruneTags false
 ```
 
 That will update the tag for this time and make it so you don't have to worry
