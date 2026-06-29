@@ -59,7 +59,7 @@ Plug("williamboman/mason.nvim") -- For automatic LSP installation
 Plug("williamboman/mason-lspconfig.nvim")
 Plug("windwp/nvim-projectconfig")
 Plug("git@github.com:mrcjkb/rustaceanvim")
-Plug("isobit/vim-caddyfile")
+Plug("isobit/vim-caddyfile", {['for'] = 'caddyfile'})
 Plug("sindrets/diffview.nvim")
 Plug("nomnivore/ollama.nvim")
 Plug("p00f/clangd_extensions.nvim")
